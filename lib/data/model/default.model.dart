@@ -8,25 +8,38 @@ dynamic resModelDataToJson(String data) => json.decode(data);
 
 class ResModel {
   String? message;
-  String? status;
-  String? token;
+  bool? status;
   dynamic data;
+  List<Null>? meta;
+  dynamic errors;
 
-  ResModel({this.message, this.token, this.status, this.data});
+  ResModel({this.message, this.status, this.data, this.meta, this.errors});
 
   ResModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    token = json['token'];
     data = json["data"];
+    if (json['meta'] != null) {
+      meta = <Null>[];
+      json['meta'].forEach((v) {
+        // meta!.add(new Null.fromJson(v));
+      });
+    }
+    errors =
+    json['errors'] != json['errors'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['message'] = message;
     data['status'] = status;
-    data['token'] = token;
+    if (this.meta != null) {
+      // data['meta'] = this.meta!.map((v) => v.toJson()).toList();
+    }
+    data['errors'] = errors;
     data['data'] = data;
     return data;
   }
 }
+
+

@@ -71,7 +71,7 @@ String? validatePhoneNumber(String? value) {
 String? fullNameValidator(String? value) {
   if(value==null){
     return "Full name cannot be empty";
-  }else if(validateFullName(value)){
+  }else if(!validateFullName(value)){
     return "Full Name not Valid";
   }
   return null;

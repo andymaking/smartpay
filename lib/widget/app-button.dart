@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:smartpay_app/utils/themeData.dart';
 
 import '../data/cache/palette.dart';
 import 'apptexts.dart';
@@ -56,56 +57,47 @@ class AppButton extends StatelessWidget {
       child: InkWell(
         onTap: isLoading == true ? null : onTap,
         borderRadius: BorderRadius.circular(borderRadius??12.sp),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 100),
-          height: 52.sp,
-          alignment: Alignment.topCenter,
+        child: Container(
+          height: noHeight!= null? null: (height ?? 56.sp),
+          width: width,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius??12.sp),
-            color: buttonShadowColor,
+            border: Border.all(width: borderWidth ?? 1.sp, color: borderColor ?? buttonBorderColor),
+            color: transparent == true? null: backGroundColor != null?
+            (onTap == null || isLoading==true? backGroundColor?.withOpacity(0.5): backGroundColor?.withOpacity(0.95))  :
+            (onTap == null || isLoading==true ? themeData.primaryColor.withOpacity(0.65) : themeData.primaryColor),
           ),
-          child: Container(
-            height: noHeight!= null? null: (height ?? 48.sp),
-            width: width,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(borderRadius??12.sp),
-              border: Border.all(width: borderWidth ?? 1.sp, color: borderColor ?? appBorderColor),
-              color: backGroundColor != null?
-              (onTap == null || isLoading==true? backGroundColor?.withOpacity(0.5): backGroundColor?.withOpacity(0.95))  :
-              (onTap == null || isLoading==true ? disablePrimaryColor : primaryColor.withOpacity(0.95)),
-            ),
-            child: Padding(
-                padding:
-                padding?? EdgeInsets.symmetric(horizontal: 5.0.sp, vertical: 5.sp),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    isLoading? SpinKitThreeBounce(
-                      size: 30,
-                      itemBuilder: (context, index) {
-                        return DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: index.isEven
-                                ? const Color(0xFF814309)
-                                : const Color(0xFFDCDFFF),
-                          ),
-                        );
-                      },
-                    ): child ??
-                        AppText(
-                          text ?? "",
-                          // family: 'Inter',
-                          weight: FontWeight.w700,
-                          color: textColor!=null?(onTap==null? textColor?.withOpacity(0.3): textColor): Colors.white,
-                          align: TextAlign.center,
-                          size: textSize?? 16.sp,
+          child: Padding(
+              padding:
+              padding?? EdgeInsets.symmetric(horizontal: 5.0.sp, vertical: 5.sp),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  isLoading? SpinKitThreeBounce(
+                    size: 30,
+                    itemBuilder: (context, index) {
+                      return DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: index.isEven
+                              ? const Color(0xFF814309)
+                              : const Color(0xFFDCDFFF),
                         ),
+                      );
+                    },
+                  ): child ??
+                      AppText(
+                        text ?? "",
+                        // family: 'Inter',
+                        weight: FontWeight.w700,
+                        color: textColor ?? (transparent == true? themeData.primaryColor: Colors.white),
+                        align: TextAlign.center,
+                        size: textSize?? 16.sp,
+                      ),
 
-                  ],
-                )),
-          ),
+                ],
+              )),
         ),
       ),
     );

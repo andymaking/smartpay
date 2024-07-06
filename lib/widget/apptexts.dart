@@ -50,6 +50,7 @@ class AppText extends StatelessWidget {
         height: height,
         decoration: decoration,
         fontFamily: family,
+        color: color,
         // fontFamily: family,
         overflow: overflow,
         fontStyle: fontStyle,

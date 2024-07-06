@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
+import '../../../utils/get-device-name.dart';
 import '../../model/default.model.dart';
+import '../../model/loginResponse.dart';
 import 'base.api.service.dart';
 
 class AuthenticationService {
@@ -34,12 +36,13 @@ class AuthenticationService {
 
   Future<Either<ResModel, LoginResponse>> login({
     required String email,
-    required String pin
+    required String password
   }) async {
     try {
-      Response response = await connect().post("auth/login/password", data: {
+      Response response = await connect().post("auth/login", data: {
         "email": email,
-        "password": pin,
+        "password": password,
+        "device_name": await getDeviceName()
       });
       return Right(LoginResponse.fromJson(jsonDecode(response.data)));
     } on DioError catch (e) {
@@ -49,23 +52,38 @@ class AuthenticationService {
     }
   }
 
-
-
-}
-
-class LoginResponse {
-  String? message;
-
-  LoginResponse({this.message});
-
-  LoginResponse.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
+  Future<Either<ResModel, ResModel>> getOtp({
+    required String email
+  }) async {
+    try {
+      Response response = await connect().post("auth/email", data: {
+        "email": email,
+      });
+      return Right(ResModel.fromJson(jsonDecode(response.data)));
+    } on DioError catch (e) {
+      return Left(resModelFromJson(e.response?.data));
+    } catch (e) {
+      return Left(ResModel(message: e.toString()));
+    }
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['message'] = message;
-    data['data'] = data;
-    return data;
+  Future<Either<ResModel, ResModel>> verifyOTP({
+    required String email,
+    required String token,
+  }) async {
+    try {
+      Response response = await connect().post("auth/email/verify", data: {
+        "email": email,
+        "token": token,
+      });
+      return Right(ResModel.fromJson(jsonDecode(response.data)));
+    } on DioError catch (e) {
+      return Left(resModelFromJson(e.response?.data));
+    } catch (e) {
+      return Left(ResModel(message: e.toString()));
+    }
   }
+
+
+
 }

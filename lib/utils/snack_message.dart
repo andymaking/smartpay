@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:smartpay_app/utils/themeData.dart';
 
 import '../data/cache/constants.dart';
 import '../utils/widget_extensions.dart';
@@ -23,7 +24,7 @@ Widget toast(String message, {bool? success, String? title}) {
               padding: EdgeInsets.symmetric(horizontal: 20.sp, vertical: 14.sp),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: !success! ? Theme.of(context).primaryColor : const Color(0xFF3B3434),
+                color: !success! ? themeData.colorScheme.error: themeData.primaryColor ,
                 borderRadius: BorderRadius.circular(12.sp)
               ),
               child: Row(
@@ -69,12 +70,12 @@ Widget toast(String message, {bool? success, String? title}) {
 
 // styled! ?:
 
-showCustomToast(String message, {bool success = false, num? time, String? title}) {
+showCustomToast(String message, {bool success = false, num? time, String? title, int? seconds}) {
 
   // toast message
   showToastWidget(
     toast(message, success: success, title: title),
-    duration: const Duration(seconds: 4),
+    duration: Duration(seconds: seconds?? 4),
     onDismiss: () {},
   );
 }

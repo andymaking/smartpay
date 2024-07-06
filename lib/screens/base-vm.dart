@@ -2,9 +2,13 @@ import 'package:connectivity/connectivity.dart';
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smartpay_app/data/cache/app-images.dart';
+import 'package:smartpay_app/localization/locales.dart';
+import 'package:smartpay_app/utils/string-extensions.dart';
 
 import '../../locator.dart';
 import '../data/cache/view_state.dart';
+import '../data/model/country-selector-model.dart';
 import '../data/repository/repository.service.dart';
 import '../data/services/local/cache.service.dart';
 import '../data/services/local/locale.service.dart';
@@ -152,6 +156,51 @@ class BaseViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  List<CountrySelectorModel> countries = [
+
+    CountrySelectorModel(
+      flag: AppImages.us,
+      shortCode: "US",
+      name: LocaleData.unitedState.convertString()
+    ),
+    CountrySelectorModel(
+      flag: AppImages.uk,
+      shortCode: "GB",
+      name: LocaleData.unitedKingdom.convertString()
+    ),
+    CountrySelectorModel(
+      flag: AppImages.nigeria,
+      shortCode: "NG",
+      name: LocaleData.nigeria.convertString()
+    ),
+    CountrySelectorModel(
+      flag: AppImages.ghana,
+      shortCode: "GH",
+      name: LocaleData.ghana.convertString()
+    ),
+    CountrySelectorModel(
+      flag: AppImages.singapore,
+      shortCode: "SG",
+      name: LocaleData.singapore.convertString()
+    ),
+    CountrySelectorModel(
+      flag: AppImages.china,
+      shortCode: "CN",
+      name: LocaleData.china.convertString()
+    ),
+    CountrySelectorModel(
+      flag: AppImages.netherlands,
+      shortCode: "NL",
+      name: LocaleData.netherlands.convertString()
+    ),
+    CountrySelectorModel(
+      flag: AppImages.indonesia,
+      shortCode: "ID",
+      name: LocaleData.indonesia.convertString()
+    ),
+
+  ];
 
 
 }
