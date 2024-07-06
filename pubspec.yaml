@@ -55,6 +55,9 @@ dependencies:
   change_app_package_name: ^1.2.0
   provider: ^6.1.2
   connectivity: ^3.0.6
+  device_info_plus: ^10.1.0
+  pin_code_fields: ^8.0.1
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +69,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubsp
@@ -85,15 +89,15 @@ flutter:
     - assets/svg/
     - .env
 
-  ################# UNCOMMENT BELOW ONLY ################
-#  fonts:
-#    - family: Futura
-#      fonts:
-#        - asset: assets/fonts/Futura-Book.ttf
-#        - asset: assets/fonts/Futura-Bold.ttf
-#        - asset: assets/fonts/Futura-Demi.ttf
-#
-#    - family: Inter
-#      fonts:
-#        - asset: assets/fonts/InterRegular.ttf
+  fonts:
+    - family: SF Pro Display
+      fonts:
+        - asset: assets/fonts/SF-Pro-Display-Bold.ttf
+          weight: 600
+        - asset: assets/fonts/SF-Pro-Display-Regular.ttf
+        - asset: assets/fonts/SF-Pro-Display-Light.ttf
+        - asset: assets/fonts/SF-Pro-Display-Medium.ttf
+        - asset: assets/fonts/SF-Pro-Display-Semibold.ttf
+        - asset: assets/fonts/SF-Pro-Display-Thin.ttf
+
 

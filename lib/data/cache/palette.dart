@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-Color primaryColor = const Color(0xFFDD3535);
+Color primaryColor = const Color(0xff111827);
+Color darkAccent = const Color(0xff0A6375);
 Color primaryDarkColor = const Color(0xFFDD3535);
 Color disablePrimaryColor = const Color(0xFFD8CDCD);
 Color secondaryColor = const Color(0xFF776767);
 Color buttonShadowColor = const Color(0xFFCCBCBC);
-Color appBorderColor = const Color(0xFFCCBCBC);
-Color textFieldBorderColor = const Color(0xFFBFACAC);
+Color buttonBorderColor = const Color(0xFFE5E7EB);
+Color textFieldBackgroundColor = const Color(0xFFF9FAFB);
 Color textColor = const Color(0xFF0C0C0C);
 Color textColorLightMode = const Color(0xFF3B3434);
 Color lighterTextColor = const Color(0xFF594D4D);

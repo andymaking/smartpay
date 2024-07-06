@@ -21,15 +21,15 @@ connect({bool? useFormData}) {
       receiveTimeout: const Duration(seconds: 60),
       responseType: ResponseType.plain);
   Dio dio = Dio(options);
-  dio.interceptors.add(PrettyDioLogger());
-  dio.interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
-      responseHeader: true,
-      error: true,
-      compact: true,
-      maxWidth: 90));
+  // dio.interceptors.add(PrettyDioLogger());
+  // dio.interceptors.add(PrettyDioLogger(
+  //     requestHeader: true,
+  //     requestBody: true,
+  //     responseBody: true,
+  //     responseHeader: true,
+  //     error: true,
+  //     compact: true,
+  //     maxWidth: 90));
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (options, handler) async {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../../../locator.dart';
 import '../../cache/constants.dart';
 import '../../cache/database-keys.dart';
+import '../../model/loginResponse.dart';
 import '../../repository/repository.service.dart';
 
 Repository _repository = locator<Repository>();
@@ -10,6 +11,7 @@ Repository _repository = locator<Repository>();
 class UserService {
   User user = User();
   bool isUserLoggedIn = false;
+  bool isUserSetPin = false;
   bool isUserServiceProvider = false;
 
   storeToken({required String accessToken, String? refreshToken}) async {
@@ -35,11 +37,11 @@ class UserService {
     print("Is User Logged In:::: $isUserLoggedIn");
   }
 
-  // storeUser(User? response) async {
-  //   print("Store User");
-  //   await storageService.storeItem(key: StorageKey.USER_TABLE_NAME, value: jsonEncode(response));
-  //   user = response??User();
-  // }
+  storeUser(User? response) async {
+    print("Store User");
+    await storageService.storeItem(key: StorageKey.USER_TABLE_NAME, value: jsonEncode(response));
+    user = response??User();
+  }
 
   logout() async {
     
@@ -72,21 +74,4 @@ class UserService {
     }
   }
 
-}
-
-class User {
-  String? message;
-
-  User({this.message});
-
-  User.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['message'] = message;
-    data['data'] = data;
-    return data;
-  }
 }
