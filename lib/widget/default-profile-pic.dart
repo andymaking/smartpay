@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smartpay_app/utils/themeData.dart';
 
 import '../data/cache/palette.dart';
 import 'apptexts.dart';
@@ -27,19 +28,13 @@ class DefaultProfilePic extends StatelessWidget {
       width: size?? 40.sp,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: disablePrimaryColor,
+        color: themeData.primaryColor,
         shape: BoxShape.circle,
-        image: picture == null? null: DecorationImage(
-          image: CachedNetworkImageProvider(
-              picture??"",
-          ),
-          fit: fit?? BoxFit.fill
-        ),
       ),
-      child: picture == null? null : AppText(
-        ((userName).split(" ")[0]),
+      child:  AppText(
+        "${((userName??"").split(" ")[0])[0]}${((userName??"").split(" ")[1])[0]}",
         size: textSize?? 16, weight: FontWeight.w700,
-        color: secondaryColor,
+        color: Colors.white,
       )
     );
   }

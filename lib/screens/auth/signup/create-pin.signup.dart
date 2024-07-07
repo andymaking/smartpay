@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smartpay_app/data/cache/constants.dart';
-import 'package:smartpay_app/data/model/loginResponse.dart';
 import 'package:smartpay_app/utils/string-extensions.dart';
 import 'package:smartpay_app/utils/widget_extensions.dart';
 
-import '../../../../localization/locales.dart';
-import '../../../../utils/themeData.dart';
-import '../../../../widget/app-bar.dart';
-import '../../../../widget/app-button.dart';
-import '../../../../widget/apptexts.dart';
-import '../../../../widget/text_field.dart';
-import '../../../base-ui.dart';
-import '../login.vm.dart';
+import '../../../localization/locales.dart';
+import '../../../utils/themeData.dart';
+import '../../../widget/app-bar.dart';
+import '../../../widget/app-button.dart';
+import '../../../widget/apptexts.dart';
+import '../../../widget/text_field.dart';
+import '../../base-ui.dart';
+import 'signup.vm.dart';
 
-class LoginWithPin extends StatelessWidget {
-  const LoginWithPin({super.key});
+class CreatePinScreen extends StatelessWidget {
+  const CreatePinScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<LoginViewModel>(
-      builder: (context, model, theme, child)=> Scaffold(
-        appBar: AppBars(),
+    return BaseView<SignUpViewModel>(
+      builder: (_, model, theme, child)=> Scaffold(
+        appBar: const AppBars(),
         body: Form(
           key: model.formKey,
           child: Padding(
@@ -30,13 +28,13 @@ class LoginWithPin extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AppText(
-                  "${LocaleData.welcomeBackUser.convertString()}${userService.user.fullName?.split(" ").first??""}",
+                  LocaleData.setYourPin.convertString(),
                   size: 24.sp,
                   isBold: true,
                 ),
                 6.sp.sbH,
                 AppText(
-                  LocaleData.enterPinToProceed.convertString(),
+                  LocaleData.weUseStateOfTheArt.convertString(),
                   style: themeData.textTheme.bodySmall?.copyWith(fontSize: 16.sp),
                 ),
                 30.sp.sbH,
@@ -56,30 +54,12 @@ class LoginWithPin extends StatelessWidget {
                     return null;
                   },
                 ),
-                20.sp.sbH,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: (){
-                        model.appCache.loginResponse = LoginResponse(data: Data(user: model.userService.user));
-                        model.goToSetPin();
-                      },
-                      child: AppText(
-                        LocaleData.forgotPin.convertString(),
-                        color: themeData.colorScheme.secondary,
-                        isBold: true,
-                        size: 16.sp,
-                      ),
-                    )
-                  ],
-                ),
                 const Spacer(),
                 20.sp.sbH,
                 AppButton(
                   isLoading: model.isLoading,
                   text: LocaleData.confirm.convertString(),
-                  onTap: model.formKey.currentState?.validate() == true? model.validatePin: null,
+                  onTap: model.formKey.currentState?.validate() == true? model.setPin: null,
                 ),
                 30.sp.sbH,
               ],

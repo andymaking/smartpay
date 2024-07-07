@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smartpay_app/utils/themeData.dart';
 
 import '../data/cache/constants.dart';
 import '../data/cache/palette.dart';
@@ -55,7 +56,7 @@ class ActionBottomSheet extends StatelessWidget {
                               child: AppButton(
                                 isLoading: false,
                                 borderless: true,
-                                borderColor: Colors.red,
+                                borderColor: themeData.colorScheme.secondary,
                                 backGroundColor: Colors.white,
                                 useFull: true,
                                 text: cancelButtonText?? "No",
@@ -76,7 +77,6 @@ class ActionBottomSheet extends StatelessWidget {
                                 textColor: Colors.white,
                                 borderWidth: 2,
                                 isExpanded: false,
-                                backGroundColor: primaryColor,
                               )
                           ),
                         ],

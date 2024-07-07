@@ -1,6 +1,8 @@
 //this class has all remote service configurations, and it takes care of the different environments we have
 import 'constants.dart';
 
+// NETWORK CONFIGURATIONS FROM CONSTANTS
+
 class NetworkConfig {
 
   static String DEVELOP_BASE_URL = baseUrl;

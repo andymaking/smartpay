@@ -8,24 +8,6 @@ class NavigationService {
     return navigatorKey.currentState!.pushNamed(routeName, arguments: argument);
   }
 
-  Future<dynamic> navigateToWidget(Widget route) {
-    // MaterialPageRoute(builder: (_)=> route)
-    return navigatorKey.currentState!.push(PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => route,
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = Offset(1.0, 0.0);
-          const end = Offset.zero;
-          const curve = Curves.ease;
-          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-          var offsetAnimation = animation.drive(tween);
-          return SlideTransition(
-            position: offsetAnimation,
-            child: child,
-          );
-        }
-    ));
-  }
-
   Future<dynamic> navigateToReplaceWidget(Widget route) {
     return navigatorKey.currentState!.pushReplacement(MaterialPageRoute(builder: (_)=> route));
   }

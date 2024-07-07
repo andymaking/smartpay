@@ -21,11 +21,16 @@ import 'styles/app_style.dart';
 Future<void> main () async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // SETUP DOT ENV
   await dotenv.load(fileName: ".env");
+
+  // SETUP STORAGE PACKAGE
   await GetStorage.init();
 
+  // SETUP OUR SERVICES AND VIEWMODEL
   await setupLocator();
 
+  // SETUP OUR SCREEN TO ALWAYS BE VERTICAL
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -33,6 +38,7 @@ Future<void> main () async {
     ],
   );
 
+  // SET APPBAR BACKGROUND
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.light,
@@ -43,14 +49,15 @@ Future<void> main () async {
 
   // Initialize and check login Status
   await locator<UserService>().initializer();
+
+  // INITIALIZE OUR LANGUAGE
   await locator<LocaleService>().init();
-  // locator<ChatServices>().initSocket();
-  // NotificationService.initialize();
 
 
   runApp(const MyApp());
       (dynamic error, dynamic stack) {
     if (kDebugMode) {
+      // SETUP PRINT ERROR ONLY IN DEBUG MODE
       print(error);
       print(stack);
     }
@@ -64,6 +71,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
+      // SETUP THEMES
         create: (_) => ThemeModel(),
         child: Consumer<ThemeModel>(
             builder: (context, themeProvider, child) {

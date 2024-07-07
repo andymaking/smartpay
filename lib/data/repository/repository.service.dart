@@ -9,7 +9,19 @@ import '../services/web/authentication.service.dart';
 
 AuthenticationService _auth = locator<AuthenticationService>();
 
+// OUR REPOSITORY
 class Repository {
+
+  Future<Either<ResModel, LoginResponse>> signUp({
+    required String fullName,
+    required String email,
+    required String username,
+    required String country,
+    required String password,
+  }) async {
+    var response = await _auth.signUp(fullName: fullName, email: email, username: username, country: country, password: password);
+    return response;
+  }
 
   Future<Either<ResModel, LoginResponse>> login({
     required String email,
@@ -29,6 +41,11 @@ class Repository {
     required String email
   }) async {
     var response = await _auth.getOtp(email: email);
+    return response;
+  }
+
+  Future<Either<ResModel, ResModel>> getMessage() async {
+    var response = await _auth.getMessage();
     return response;
   }
 

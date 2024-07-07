@@ -10,23 +10,23 @@ import 'base.api.service.dart';
 
 class AuthenticationService {
 
-  Future<Either<ResModel, ResModel>> signUp({
-    required String phoneNumber,
+  Future<Either<ResModel, LoginResponse>> signUp({
+    required String fullName,
     required String email,
-    required String firstName,
-    required String lastName,
-    required String gender,
+    required String username,
+    required String country,
     required String password,
   }) async {
     try {
-      Response response = await connect().post("auth/signup/password", data: {
-        "phoneNumber": phoneNumber,
+      Response response = await connect().post("auth/register", data: {
+        "full_name": fullName,
         "email": email,
-        "name": "$firstName $lastName",
-        "gender": gender.toUpperCase(),
+        "username": username,
+        "country": country,
         "password": password,
+        "device_name": await getDeviceName(),
       });
-      return Right(ResModel.fromJson(jsonDecode(response.data)));
+      return Right(LoginResponse.fromJson(jsonDecode(response.data)));
     } on DioError catch (e) {
       return Left(resModelFromJson(e.response?.data));
     } catch (e) {
@@ -76,6 +76,17 @@ class AuthenticationService {
         "email": email,
         "token": token,
       });
+      return Right(ResModel.fromJson(jsonDecode(response.data)));
+    } on DioError catch (e) {
+      return Left(resModelFromJson(e.response?.data));
+    } catch (e) {
+      return Left(ResModel(message: e.toString()));
+    }
+  }
+
+  Future<Either<ResModel, ResModel>> getMessage() async {
+    try {
+      Response response = await connect().get("dashboard");
       return Right(ResModel.fromJson(jsonDecode(response.data)));
     } on DioError catch (e) {
       return Left(resModelFromJson(e.response?.data));

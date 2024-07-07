@@ -1,5 +1,8 @@
-const String HomeRoute = '/home_bottom_nav_page';
-const String AuthSelectorRoute = '/auth_selector_view_route';
+const String HOMEROUTE = '/home_bottom_nav_page';
+const String FORGOTHOMEROUTE = '/forgot_password_home_route';
+const String VERIFYFORGOTHOMEROUTE = '/verify_email_forgot_password_home_route';
+const String CREATEPASSWORDFORGOTHOMEROUTE = '/create_new_password_forgot_password_home_route';
+const String CREATEPINROUTE = '/auth_create_pin_route';
 const String SIGNUPROUTE = '/auth_sign_up_route';
 const String VERIFYOTPROUTE = '/auth_verify_otp_route';
 const String ENTERDETAILSSIGNUPROUTE = '/auth_create_profile_for_user';

@@ -1,1 +1,6 @@
-enum  ViewState {Idle, Loading, Success, Error}
+// APP STATE
+enum  ViewState {
+  Idle,
+  Loading,
+  Success, Error
+}

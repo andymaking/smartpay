@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:smartpay_app/utils/themeData.dart';
 
+import '../data/cache/app-images.dart';
 import '../data/cache/constants.dart';
 import '../utils/widget_extensions.dart';
 import '../widget/apptexts.dart';
@@ -29,11 +31,11 @@ Widget toast(String message, {bool? success, String? title}) {
               ),
               child: Row(
                 children: [
-                  // SvgPicture.asset(success? AppImages.successIcon: AppImages.errorIcon,
-                  //   height: 35.sp,
-                  //   width: 35.sp,
-                  // ),
-                  // 10.0.sbW,
+                  SvgPicture.asset(success? AppImages.successIcon: AppImages.errorIcon,
+                    height: 35.sp,
+                    width: 35.sp,
+                  ),
+                  10.0.sbW,
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

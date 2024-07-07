@@ -24,9 +24,10 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Extend view from baseview
     return BaseView<LoginViewModel>(
       builder: (context, model, theme, child)=> Scaffold(
-        appBar: AppBars(),
+        appBar: const AppBars(),
         body: Form(
           key: model.formKey,
           child: Padding(
@@ -65,11 +66,17 @@ class LoginScreen extends StatelessWidget {
                         onChanged: model.onChange,
                       ),
                       16.sp.sbH,
-                      AppText(
-                        LocaleData.forgotPassword.convertString(),
-                        size: 16.sp,
-                        isBold: true,
-                        color: darkAccent,
+                      InkWell(
+                        onTap: model.goToForgotPassword,
+                        child: Padding(
+                          padding: 4.sp.padV,
+                          child: AppText(
+                            LocaleData.forgotPassword.convertString(),
+                            size: 16.sp,
+                            isBold: true,
+                            color: darkAccent,
+                          ),
+                        ),
                       ),
                       25.sp.sbH,
                       AppButton(
