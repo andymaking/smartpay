@@ -31,6 +31,7 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> with Wi
   String? currentLocale;
   T model = locator<T>();
 
+  // INITIALIZE THE BASEVIEW
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);

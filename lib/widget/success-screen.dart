@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smartpay_app/utils/themeData.dart';
 
+import '../data/cache/app-images.dart';
 import '../localization/locales.dart';
 import '/utils/widget_extensions.dart';
 import '/utils/string-extensions.dart';
@@ -32,39 +34,38 @@ class SuccessScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 25.sp),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            54.sp.sbH,
-            Expanded(child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // SvgPicture.asset(
-                //   AppImages.checkMark,
-                //   width: 50.sp,
-                //   height: 40.sp,
-                // ),
-                60.sp.sbH,
-                AppText(
-                  title??"",
-                  size: 25.sp,
-                  weight: FontWeight.w700,
-                  align: TextAlign.center,
+            Image.asset(
+              AppImages.thumbsUp,
+                width: 140.45.sp,
+              height: 134.33.sp,
+            ),
+            16.sp.sbH,
+            AppText(
+              title??"",
+              size: 24.sp,
+              weight: FontWeight.w700,
+              align: TextAlign.center,
+            ),
+            16.sp.sbH,
+            Padding(
+              padding: 20.sp.padH,
+              child: AppText(
+                body??"",
+                style: themeData.textTheme.bodySmall?.copyWith(
+                  fontSize: 16.sp
                 ),
-                5.sp.sbH,
-                AppText(
-                  body??"",
-                  size: 20.sp,
-                  weight: FontWeight.w400,
-                  align: TextAlign.center,
-                ),
-
-              ],
-            )),
+                align: TextAlign.center,
+              ),
+            ),
+            16.sp.sbH,
             AppButton(
               isLoading: false,
-              text: buttonText?? LocaleData.continues.convertString(),
+              text: buttonText?? LocaleData.getStarted.convertString(),
               onTap: onTap,
-            )
+            ),
           ],
         ),
       ),

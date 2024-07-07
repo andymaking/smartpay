@@ -7,9 +7,11 @@ import 'package:smartpay_app/localization/locales.dart';
 import 'package:smartpay_app/utils/string-extensions.dart';
 
 import '../../locator.dart';
+import '../data/cache/constants.dart';
 import '../data/cache/view_state.dart';
 import '../data/model/country-selector-model.dart';
 import '../data/repository/repository.service.dart';
+import '../data/routes/routes.dart';
 import '../data/services/local/cache.service.dart';
 import '../data/services/local/locale.service.dart';
 import '../data/services/local/storage.service.dart';
@@ -17,6 +19,7 @@ import '../data/services/local/user.service.dart';
 import '../widget/action-widget.dart';
 
 class BaseViewModel extends ChangeNotifier {
+  // IMPORT SERVICES TO BE USED
   ViewState _viewState = ViewState.Loading;
   LocaleService localeService = locator<LocaleService>();
   UserService userService = locator<UserService>();
@@ -27,12 +30,15 @@ class BaseViewModel extends ChangeNotifier {
   ViewState get viewState => _viewState;
 
   final formKey = GlobalKey<FormState>();
-  final GlobalKey repaintKey = GlobalKey();
 
+  // NAVIGATE TO SETUP PIN
+  goToSetPin()async{
+    navigationService.navigateTo(CREATEPINROUTE);
+  }
 
-  Future<bool> isConnectedToNetwork() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    return connectivityResult != ConnectivityResult.none;
+  // NAVIGATE TO DASHBOARD
+  goHome()async{
+    navigationService.navigateToAndRemoveUntil(HOMEROUTE);
   }
 
   String convertPhoneNumber(String number) {
@@ -46,34 +52,19 @@ class BaseViewModel extends ChangeNotifier {
     }
   }
 
+  // LOGOUT THE USER
   showLogout()async{
-    // popDialog(
-    //   context: navigationService.navigatorKey.currentState!.context,
-    //   onTap: userService.logout,
-    //   title: "${LocaleData.logOut.convertString()} ${(userService.user.user?.firstName??"").toTitleCase()} ${(userService.user.user?.lastName??"").toTitleCase()}",
-    //   subTitle: LocaleData.confirmLogOut.convertString()
-    // );
-  }
-
-  getUser() async {
-    startLoader();
-    try{
-      // var res = await repository.getUser();
-    }catch(err){
-      debugPrint(err.toString());
-    }
-    stopLoader();
-    notifyListeners();
+    popDialog(
+      context: navigationService.navigatorKey.currentState!.context,
+      onTap: userService.logout,
+      title: "${LocaleData.logOut.convertString()} ${(userService.user.fullName??"").toTitleCase()}",
+    );
   }
 
   set viewState(ViewState newState) {
     _viewState = newState;
     _viewState == ViewState.Loading ? isLoading = true : isLoading = false;
     notifyListeners();
-  }
-
-  logOuts(BuildContext context) {
-    popDialog(context: context, onTap: userService.logout, title: "Log out");
   }
 
   bool isLoading = false;
@@ -83,40 +74,6 @@ class BaseViewModel extends ChangeNotifier {
       isLoading = true;
       viewState = ViewState.Loading;
       notifyListeners();
-    }
-  }
-
-
-
-  String getFileTypeFromUrl(String url) {
-    List<String> parts = url.split('/');
-    String fileName = parts.last;
-    List<String> fileNameParts = fileName.split('.');
-
-    if (fileNameParts.length > 1) {
-      String extension = fileNameParts.last;
-      switch (extension.toLowerCase()) {
-        case 'jpg':
-        case 'jpeg':
-        case 'png':
-        case 'svg':
-        case 'heic':
-        case 'webp':
-          return 'image.${extension.toLowerCase()}';
-        case 'mp4':
-        case 'avi':
-        case 'mov':
-          return 'video.${extension.toLowerCase()}';
-        case 'pdf':
-          return 'PDF.${extension.toLowerCase()}';
-        case 'docx':
-        case 'doc':
-          return 'Document.${extension.toLowerCase()}';
-        default:
-          return 'Unknown';
-      }
-    } else {
-      return 'Unknown';
     }
   }
 

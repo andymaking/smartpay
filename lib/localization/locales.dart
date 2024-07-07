@@ -1,8 +1,11 @@
 import 'package:flutter_localization/flutter_localization.dart';
 
+// LIST OF LANGUAGES
 const List<MapLocale> LOCALES =[
   MapLocale("en", LocaleData.EN),
 ];
+
+// SETTING UP TEXT FOR MULTI LANGUAGES
 
 mixin LocaleData {
 
@@ -64,11 +67,40 @@ mixin LocaleData {
   static const String indonesia = 'indonesia';
   static const String cancel = 'cancel';
   static const String nigeria = 'nigeria';
+  static const String welcomeBackUser = 'welcomeBackUser';
   static const String alreadyHaveAnAccount = 'alreadyHaveAnAccount';
+  static const String enterPinToProceed = 'enterPinToProceed';
+  static const String forgotPin = 'forgotPin';
+  static const String logOut = 'logOut';
+  static const String sendMeEmail = 'sendMeEmail';
+  static const String confirmLogOut = 'confirmLogOut';
+  static const String recoverPassword = 'recoverPassword';
+  static const String enterYourRegisterdEmail = 'enterYourRegisterdEmail';
+  static const String verifyYourIdentity = 'verifyYourIdentity';
+  static const String whereWouldYouLike = 'whereWouldYouLike';
+  static const String toSendYourSecuirtyCode = 'toSendYourSecuirtyCode';
+  static const String creatNewPassword = 'creatNewPassword';
+  static const String pleaseEnterANewPassword = 'pleaseEnterANewPassword';
+  static const String secretMessage = 'secretMessage';
 
 
+  // CONVERTED ENGLISH LANGUAGE
   static const Map<String, dynamic> EN = {
     confirm: "Confirm",
+    secretMessage: "Secret Message",
+    pleaseEnterANewPassword: "Please, enter a new password below different from the previous password",
+    verifyYourIdentity: "Verify your identity",
+    creatNewPassword: "Create New Password",
+    sendMeEmail: "Send me email",
+    whereWouldYouLike: "Where would you like ",
+    toSendYourSecuirtyCode: " to send your security code?",
+    recoverPassword: "Password Recovery",
+    enterYourRegisterdEmail: "Enter your registered email below to receive password instructions",
+    forgotPin: "Forgot Pin?",
+    enterPinToProceed: "Please enter your pin to proceed",
+    welcomeBackUser: "Welcome back, ",
+    logOut: "Log out",
+    confirmLogOut: "Confirm Log out",
     unitedState: "United States",
     unitedKingdom: "United Kingdom",
     singapore: "Singapore",

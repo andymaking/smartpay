@@ -13,7 +13,7 @@ import '../../cache/database-keys.dart';
 
 String? newToken;
 
-
+// SET UP OUR DIO CONNECTION
 connect({bool? useFormData}) {
   BaseOptions options = BaseOptions(
       baseUrl: Config.BASEURL,
@@ -21,15 +21,6 @@ connect({bool? useFormData}) {
       receiveTimeout: const Duration(seconds: 60),
       responseType: ResponseType.plain);
   Dio dio = Dio(options);
-  // dio.interceptors.add(PrettyDioLogger());
-  // dio.interceptors.add(PrettyDioLogger(
-  //     requestHeader: true,
-  //     requestBody: true,
-  //     responseBody: true,
-  //     responseHeader: true,
-  //     error: true,
-  //     compact: true,
-  //     maxWidth: 90));
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (options, handler) async {
@@ -96,76 +87,6 @@ connect({bool? useFormData}) {
   return dio;
 }
 
-
-privateConnect({bool? useFormData}) {
-  BaseOptions options = BaseOptions(
-      baseUrl: Config.BASEURL,
-      connectTimeout: const Duration(seconds: 60),
-      receiveTimeout: const Duration(seconds: 60),
-      responseType: ResponseType.plain);
-  Dio dio = Dio(options);
-  dio.interceptors.add(
-    InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        // debugPrint(options.uri.path);
-        // debugPrint(Config.BASEURL);
-        // debugPrint(options.data.toString());
-        
-        String? value = await storageService.read(key: StorageKey.TOKEN_TABLE_NAME);
-        // debugPrint("ACCESS TOKEN::: $value");
-        if (value != null && value.isNotEmpty) {
-          options.headers['Authorization'] = "Bearer $value";
-          if(useFormData == true){
-            options.headers['Accept'] = "multipart/form-data";
-            options.headers['Content-Type'] = "multipart/form-data";
-          }
-        }
-        return handler.next(options);
-      },
-      onResponse: (response, handler) async {
-        // debugPrint("SERVER RESPONSE::: ${response.data}");
-        return handler.next(response);
-      },
-      onError: (DioError e, handler) async {
-
-        var box = GetStorage();
-
-        if(e.response == null){
-          // showCustomToast("Connect Internet to proceed");
-          return handler.next(e);
-        }else if(!isJson(e.response?.data)){
-          // showCustomToast("Error processing the request");
-          return handler.next(e);
-        }else {
-          try{
-            if(ResModel.fromJson(jsonDecode(e.response?.data)).message == "Malformed or expired token provided"){
-              bool hasKey = box.hasData(StorageKey.REFRESH_TOKEN_TABLE_NAME);
-              if (hasKey) {
-                bool value = await refreshAuthToken();
-                print("DID IT REFRESH TOKEN === $value");
-                if (value) {
-                  return handler.resolve(await _retry(e.requestOptions));
-                }else{
-                  await userService.logout();
-                }
-              }else{
-                await userService.logout();
-              }
-            }else{
-              return handler.next(e);
-            }
-          }catch(err){
-            return handler.next(e);
-          }
-
-          return handler.next(e);
-        }
-      },
-    ),
-  );
-
-  return dio;
-}
 
 bool isJson(String str) {
   try {

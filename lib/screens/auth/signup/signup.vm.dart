@@ -3,9 +3,13 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:smartpay_app/data/cache/database-keys.dart';
+import 'package:smartpay_app/localization/locales.dart';
 import 'package:smartpay_app/utils/app-buttom-sheet.dart';
 import 'package:smartpay_app/utils/dartz.x.dart';
 import 'package:smartpay_app/utils/snack_message.dart';
+import 'package:smartpay_app/utils/string-extensions.dart';
+import 'package:smartpay_app/widget/success-screen.dart';
 
 import '../../../data/cache/constants.dart';
 import '../../../data/model/country-selector-model.dart';
@@ -30,6 +34,7 @@ class SignUpViewModel extends BaseViewModel {
     navigationService.goBack();
     countryController = TextEditingController(text: val.name);
     selectedCountry = val;
+    FocusManager.instance.primaryFocus?.nextFocus();
     notifyListeners();
     onChange("");
   }
@@ -66,6 +71,7 @@ class SignUpViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  // NAVIGATE TO SIGN IN
   goToLogin()async{
     navigationService.navigateTo(LOGINROUTE);
   }
@@ -82,6 +88,7 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   goToVerifyEmail() async {
+    FocusManager.instance.primaryFocus?.unfocus();
     startLoader();
     try{
       var res = await repository.getOtp(email: emailController.text.trim());
@@ -103,6 +110,7 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   resendOTP()async{
+    FocusManager.instance.primaryFocus?.unfocus();
     startLoader();
     try{
       var res = await repository.getOtp(email: appCache.email??"");
@@ -124,6 +132,7 @@ class SignUpViewModel extends BaseViewModel {
   }
 
   verifyOtp()async{
+    FocusManager.instance.primaryFocus?.unfocus();
     startLoader();
     try{
       var res = await repository.verifyOTP(email: appCache.email??"", token: otpController.text.trim());
@@ -141,10 +150,56 @@ class SignUpViewModel extends BaseViewModel {
     }
   }
 
+  success(){
+    FocusManager.instance.primaryFocus?.unfocus();
+    navigationService.navigateToAndRemoveUntilWidget(
+      SuccessScreen(
+        title: "${LocaleData.congratulations.convertString()}${appCache.loginResponse?.data?.user?.fullName?.split(" ").first}",
+        onTap:userService.isUserLoggedIn ==true? goHome : () {
+          appCache.clearAuth();
+          navigationService.navigateToAndRemoveUntil(LOGINROUTE);
+        },
+        body: LocaleData.youHaveCompletedTheONboarding.convertString(),
+      )
+    );
+  }
+
+  setPin()async{
+    await storageService.storeItem(key: StorageKey.PIN_SET_TABLE_NAME, value: otpController.text.trim());
+    success();
+  }
+
+  register()async{
+    FocusManager.instance.primaryFocus?.unfocus();
+    startLoader();
+    try{
+      var res = await repository.signUp(
+          fullName: fullNameController.text.trim(),
+          email: appCache.email??"",
+          username: userNameController.text.trim(),
+          country: selectedCountry?.shortCode??"",
+          password: passwordController.text.trim()
+      );
+      if(res.isRight()){
+        stopLoader();
+        showCustomToast("Account Created Successfully", success: true);
+        appCache.loginResponse = res.asRight();
+        goToSetPin();
+      }else{
+        stopLoader();
+        showCustomToast("Invalid OTP");
+      }
+    }catch(err){
+      debugPrint(err.toString());
+      stopLoader();
+    }
+  }
+
 
   goToEnterDetails()async{
     navigationService.navigateTo(ENTERDETAILSSIGNUPROUTE);
   }
+
 }
 
 class TokenResModel {

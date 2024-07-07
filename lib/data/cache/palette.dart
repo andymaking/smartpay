@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// COLOR PALLETS USED IN APP DECLARED GLOBALLY
+
 Color primaryColor = const Color(0xff111827);
 Color darkAccent = const Color(0xff0A6375);
 Color primaryDarkColor = const Color(0xFFDD3535);

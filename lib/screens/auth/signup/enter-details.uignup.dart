@@ -66,7 +66,6 @@ class EnterDetailsSignUp extends StatelessWidget {
                       20.sp.sbH,
                       AppTextField(
                         controller: model.userNameController,
-                        validator: emptyValidator,
                         fontWeight: FontWeight.w400,
                         onChanged: model.onChange,
                         hint: LocaleData.userName.convertString(),
@@ -103,7 +102,7 @@ class EnterDetailsSignUp extends StatelessWidget {
                       AppButton(
                         isLoading: model.isLoading,
                         text: LocaleData.signUp.convertString(),
-                        onTap: model.formKey.currentState?.validate() == true? model.goToVerifyEmail: null,
+                        onTap: model.formKey.currentState?.validate() == true? model.register: null,
                       ),
 
                     ],

@@ -1,10 +1,12 @@
 import 'network_config.dart';
 
+// ENUMS FOR DIFFERENT ENVIRONMENTS
 enum Flavor {
   DEVELOPMENT,
   RELEASE,
 }
 
+// ENVIRONMENT CONFIGURATION FOR BASE URL
 class Config {
   static Flavor? appFlavor;
 

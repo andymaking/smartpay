@@ -5,7 +5,7 @@ import '../services/local/navigation.service.dart';
 import '../services/local/storage.service.dart';
 import '../services/local/user.service.dart';
 
-
+// DECLARING SERVICES GLOBALLY WE WILL USE MULTIPLE TIMES IN THE APP
 UserService userService = locator<UserService>();
 StorageService storageService = locator<StorageService>();
 NavigationService navigationService = locator<NavigationService>();
