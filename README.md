@@ -1,16 +1,39 @@
-# template_app
+# Smartpay_App
 
-A new Flutter project.
+Mobile Developer Screening Test app, designed to evaluate skills and creativity in mobile app
+development. This project involves converting a pixel-perfect design of the onboarding and
+authentication flow, utilizing a variety of tools and technologies to create a seamless user
+experience.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+These instructions will give you heads up on how to get started, architecture flow, implementations using in this project.
 
-A few resources to get you started if this is your first Flutter project:
+### Architecture.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+I decide to adopt ```Clean Architecture``` for the development because it allow decoupling different units of your code in an organized manner.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+## The project consist of some basic implementations and patterns:
+
+* MVVM architectural approaches for the Presentation layer
+  
+* Network operations with [Dio](https://pub.dev/packages/dio)
+
+* [json_serializable](https://pub.dev/packages/json_serializable) for JSON serialization and deserialization .
+  
+* [get_it](https://pub.dev/packages/get_it) For simple Service Locator
+  
+* [Provider](https://pub.dev/packages/provider) A predictable state management for handling app wide state.
+  
+* [Get_STorage](https://pub.dev/packages/get_storage) Flutter Secure Storage provides API to store data in secure storage. Keychain is used in iOS, KeyStore based solution is used in Android
+
+
+### Installing & Setup
+
+* Clone this project from Github to your machine
+* Import project to Android Studio using the latest version (Android Studio Iguana and above)
+* Run `dart run build_runner build --delete-conflicting-outputs` to build all annotations on the app
+* To install the app on your device, you can get the apk from this link: build/app/outputs/flutter-apk/app-release.apk
+
+
